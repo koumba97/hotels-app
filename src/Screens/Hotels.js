@@ -4,7 +4,7 @@ import axios from 'axios';
 //import { faCalendar, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import {lightGrey} from '../Const/Colors';
 import InputDate from '../Components/InputDate';
-import CityCheckbox from '../Components/CityCheckbox';
+import CountryRadio from '../Components/CountryRadio';
 import HotelCard from '../Components/HotelCard';
 
 
@@ -103,10 +103,10 @@ class Hotels extends React.Component {
                     <InputDate name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
                     <h5 style={{margin:'0px'}}>Recherche par pays</h5>
-                    <CityCheckbox city="france" displayName="France"/>
-                    <CityCheckbox city="spain" displayName="Espagne"/>
-                    <CityCheckbox city="italy" displayName="Italie"/>
-                    <CityCheckbox city="greece" displayName="Grèce"/>
+                    <CountryRadio country="france" displayName="France"/>
+                    <CountryRadio country="spain" displayName="Espagne"/>
+                    <CountryRadio country="italy" displayName="Italie"/>
+                    <CountryRadio country="greece" displayName="Grèce"/>
                     
                     <p>{this.state.totalResult} hôtel(s) trouvé(s)</p>
                 </div>
@@ -115,7 +115,6 @@ class Hotels extends React.Component {
 
                     {this.state.listHotels.map((hotel) => (
                         <HotelCard  key={hotel.hotelId} data={hotel}/>
-                        
                     ))}
                 </div>
 

@@ -20,15 +20,15 @@ class HotelCard extends React.Component {
             //cut the hotel's name if too long
             hotelName = hotelName.substring(0, 20) + '...';
         }
-        if(hotelDescription.length>180){
+        if(hotelDescription.length>160){
             //cut the hotel's description if too long
-            hotelDescription = hotelDescription.substring(0, 180) + '...';
+            hotelDescription = hotelDescription.substring(0, 160) + '...';
         }
 
         return(
             <div className="hotel_card-container">
                 <div className="hotel_card-image" style={{backgroundImage:`url(${hotel.images[0].url})`}}>
-                    <div className="hotel_card-city">{hotel.address.city}      <FontAwesomeIcon icon={faMapMarkerAlt} /></div>
+                    <div className="hotel_card-city"><FontAwesomeIcon icon={faMapMarkerAlt} /> {hotel.address.city}</div>
                 </div>
                 <div className="hotel_card-details">
                     <p className="hotel_card-name">{hotelName}</p>

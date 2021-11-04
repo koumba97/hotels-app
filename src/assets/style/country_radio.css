@@ -1,4 +1,4 @@
-.city_checkbox-container + label{
+.country_radio-container + label{
     border-radius: 10px;
     background-color: white;
     transition-duration: 0.5s;
@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
 }
-.checkbox-image{
+.country_radio-image{
     width: 40px;
     height: 80%;
     background-size: contain;
@@ -28,15 +28,15 @@
     background-image: url('../images/countries/spain.png');
 }
 
-.city_checkbox-container:hover + label{
+.country_radio-container:hover + label{
     background-color: rgb(179, 189, 245);
 }
-.city_checkbox-container:checked + label{
+.country_radio-container:checked + label{
     background-color: rgb(235, 235, 238);
 }
 
 
 
-input[type=checkbox]{
+input[type=radio]{
     display: none;
 }
