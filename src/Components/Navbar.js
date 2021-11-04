@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { ReactComponent as YourSvg } from '../assets/images/leavy_logo.svg';
+import { ReactComponent as LogoSvg } from '../assets/images/leavy_logo.svg';
 
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ export default function Navbar() {
     }
     return (
         <nav style={navStyle}>
-            <YourSvg height={40}  width={140}/>
+            <LogoSvg height={40}  width={140}/>
 
             <div style={searchInputContainer}>
                 <input type='search' placeholder='Rechercher un hôtel' style={searchInput}/>

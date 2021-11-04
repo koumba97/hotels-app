@@ -7,20 +7,6 @@ class InputDate extends React.Component {
         };
     }
 
-    handleChange(e) {
-        let value = e.target.value;
-        console.log(value);
-        // if (e.target.value !== "") {
-        //     this.props.articles.find(item => {
-        //         if (item.categorie.includes(test)) {
-        //             finalData.push(item)
-        //             this.props.filterdata(finalData);
-        //             // console.log(item,'teeeest');
-        //         }
-        //     })
-        // }
-    }
-
     updateDate(event) {
         this.props.updateDate(event.target.value);
     }
@@ -33,7 +19,7 @@ class InputDate extends React.Component {
         const dateContainer = {
             border:'solid 3px rgb(187, 211, 243)',
             borderRadius:'10px',
-            height:'50px',
+            height:'45px',
             justifyContent:'space-between',
             display:'flex',
             flexDirection:'column',

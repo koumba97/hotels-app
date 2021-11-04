@@ -1,19 +1,21 @@
 import React from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { faCalendar, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import {lightGrey} from '../Const/Colors';
 import InputDate from '../Components/InputDate';
+import CityCheckbox from '../Components/CityCheckbox';
+
 
 
 // get current date
 let newDate = new Date()
 let date = newDate.getDate();
-console.log(date.length)
-if(date.toString().length==1){
+if(date.toString().length===1){
     date = "0"+date;
 }
 let month = newDate.getMonth() + 1;
-if(month.toString().length==1){
+if(month.toString().length===1){
     month = "0"+month;
 }
 let year = newDate.getFullYear();
@@ -23,11 +25,11 @@ let currentDate = year + '-' + month + '-' + date;
 // adding 5 days to current date to get default return date
 newDate.setDate(newDate.getDate() + 5)
 let returnD = newDate.getDate();
-if(returnD.toString().length==1){
+if(returnD.toString().length===1){
     returnD = "0"+returnD;
 }
 let returnM = newDate.getMonth() + 1;
-if(returnM.toString().length==1){
+if(returnM.toString().length===1){
     returnM = "0"+returnM;
 }
 let returnY = newDate.getFullYear();
@@ -70,7 +72,7 @@ class Hotels extends React.Component {
 
     render(){
         const hotelResultContainer = {
-            backgroundColor:"rgb(231, 231, 231)",
+            backgroundColor:lightGrey,
             paddingTop:'calc(50px + 20px)',
         }
         const hotelFilterContainer = {
@@ -89,7 +91,14 @@ class Hotels extends React.Component {
                 <div className='hotel_filter-container' style={hotelFilterContainer}>
                     <InputDate name="Date aller" value={this.state.departureDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
                     <InputDate name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
-                    <p>{this.state.departureDate}</p>
+
+                    <h5 style={{margin:'0px'}}>Recherche par ville(s)</h5>
+                    <CityCheckbox city="france" displayName="France"/>
+                    <CityCheckbox city="spain" displayName="Espagne"/>
+                    <CityCheckbox city="italy" displayName="Italie"/>
+                    <CityCheckbox city="greece" displayName="Grèce"/>
+                    
+                    <p>XX résultats</p>
                 </div>
 
             </section>

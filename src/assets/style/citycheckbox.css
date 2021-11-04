@@ -1,0 +1,42 @@
+.city_checkbox-container + label{
+    border-radius: 10px;
+    background-color: white;
+    transition-duration: 0.5s;
+    height: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.checkbox-image{
+    width: 40px;
+    height: 80%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.icon-greece{
+    background-image: url('../images/countries/greece.png');
+}
+.icon-france{
+    background-image: url('../images/countries/france.png');
+}
+.icon-italy{
+    background-image: url('../images/countries/italy.png');
+}
+.icon-spain{
+    background-image: url('../images/countries/spain.png');
+}
+
+.city_checkbox-container:hover + label{
+    background-color: rgb(179, 189, 245);
+}
+.city_checkbox-container:checked + label{
+    background-color: rgb(235, 235, 238);
+}
+
+
+
+input[type=checkbox]{
+    display: none;
+}
