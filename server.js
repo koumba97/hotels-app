@@ -7,21 +7,23 @@ app.use(cors({origin: true, credentials: true}));
 const apiToken = 'sandb_iizLheGLJiVaJVEOMzXF97mutZTvh4V1Eb1LUxfq';
 
 
-app.get('/hotels', async function (req, res) {
-    try {
-        await axios.get('http://hotel.leavy.voyage/v1/hotels',{
+app.get('/hotels/:country', async function (req, res) {
+    let countryCode =req.params.country;
+    await axios.get('http://hotel.leavy.voyage/v1/hotels?size=1000&country[eq]='+countryCode,{
         headers: {
             'Content-Type': 'application/json', 
-            'X-API-KEY': apiToken
-        }}, req)
-        .then(resp => {
-            console.log(resp.data);
-            res.send(resp.data);
-        });
-    } catch (error) {
+            'X-API-KEY': apiToken,
+        },
+    }, req)
+    .then(resp => {
+        console.log(resp.data);
+        res.send(resp.data);
+    })
+    .catch(function (error){
         console.log(error.message);
-       // res.send('fail');
-    }
+        res.send(error);
+    });
+
 })
 
 app.listen(4242, function (error) {
