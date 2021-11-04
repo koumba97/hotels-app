@@ -15,10 +15,16 @@ class HotelCard extends React.Component {
     render(props){
         let hotel = this.props.data;
         let hotelName = hotel.name.substring(0, hotel.name.length - "[SANDBOX]".length);
+        let hotelDescription = hotel.description.short;
         if(hotelName.length>20){
             //cut the hotel's name if too long
             hotelName = hotelName.substring(0, 20) + '...';
         }
+        if(hotelDescription.length>180){
+            //cut the hotel's description if too long
+            hotelDescription = hotelDescription.substring(0, 180) + '...';
+        }
+
         return(
             <div className="hotel_card-container">
                 <div className="hotel_card-image" style={{backgroundImage:`url(${hotel.images[0].url})`}}>
@@ -26,6 +32,8 @@ class HotelCard extends React.Component {
                 </div>
                 <div className="hotel_card-details">
                     <p className="hotel_card-name">{hotelName}</p>
+                    <p className="hotel_card-address">{hotel.address.line1}, {hotel.address.postalCode} {hotel.address.city}</p>
+                    <p className="hotel_card-description">{hotelDescription}</p>
                     <StarRatings
                         rating={hotel.starRating}
                         starRatedColor="rgb(65, 109, 255)"
@@ -34,7 +42,6 @@ class HotelCard extends React.Component {
                         numberOfStars={5}
                         name='rating'
                     />
-                    <p className="hotel_card-address">{hotel.address.line1}, {hotel.address.postalCode} {hotel.address.city}</p>
                 </div>
             </div>
         )

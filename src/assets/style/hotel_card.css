@@ -6,6 +6,8 @@
     margin-bottom:20px;
     border:solid 2px rgb(230 230 230);
     cursor: default;
+
+    
 }
 
 .hotel_card-image{
@@ -44,4 +46,31 @@
     margin: 0px;
     color: gray;
     font-size: 10px;
+}
+.hotel_card-description{
+    display: none;
+    font-size: 10px;
+}
+
+@media screen and (min-width: 1100px) {
+    .hotel_card-container{
+      display: flex;
+      height:140px;
+    }
+    .hotel_card-image{
+        padding: 10px;
+        border-top-left-radius:20px;
+        border-bottom-left-radius:20px;
+        border-top-right-radius:0px;
+        width: 150px;
+    }
+    .hotel_card-city{
+        margin-left: unset;
+    }
+    .hotel_card-details{        
+        width: calc(100% - 150px);
+    }
+    .hotel_card-description{
+        display: block;
+    }
 }
