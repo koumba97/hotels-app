@@ -5,6 +5,7 @@ import axios from 'axios';
 import {lightGrey} from '../Const/Colors';
 import InputDate from '../Components/InputDate';
 import CityCheckbox from '../Components/CityCheckbox';
+import HotelCard from '../Components/HotelCard';
 
 
 
@@ -41,6 +42,7 @@ class Hotels extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            totalResult:0,
             listHotels: [],
             loading: true,
             departureDate:currentDate,
@@ -49,7 +51,7 @@ class Hotels extends React.Component {
     }
 
     componentDidMount() {
-        //this.hotelsResult();
+        this.hotelsResult();
     }
     updateDepartureDate(date) {
         this.setState({
@@ -63,9 +65,10 @@ class Hotels extends React.Component {
     }
     hotelsResult = async () => {
         await axios.get('/hotels/FRA').then(response => {
-            console.log(response)
+            console.log(response.data.data)
             this.setState({
-                listHotels: response,
+                listHotels: response.data.data,
+                totalResult:response.data.pagination.total,
             })
         })
     }
@@ -74,32 +77,48 @@ class Hotels extends React.Component {
         const hotelResultContainer = {
             backgroundColor:lightGrey,
             paddingTop:'calc(50px + 20px)',
+            display:'flex',
+            height:'calc(100vh - 70px)',
+            overflow:'scroll'
         }
         const hotelFilterContainer = {
             width:'200px',
             backgroundColor: 'white',
-            height:'100vh',
             padding:'30px',
             display:'flex',
             flexDirection:'column',
             gap:'20px',
         }
 
-       
+        const hotelListContainer = {
+            width:'calc(50% - 200px)',
+            padding:'20px',
+            gap:'30px',
+            overflow:'scroll',
+        }
         return(
             <section className='hotels_result-container' style={hotelResultContainer}>
                 <div className='hotel_filter-container' style={hotelFilterContainer}>
                     <InputDate name="Date aller" value={this.state.departureDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
                     <InputDate name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
-                    <h5 style={{margin:'0px'}}>Recherche par ville(s)</h5>
+                    <h5 style={{margin:'0px'}}>Recherche par pays</h5>
                     <CityCheckbox city="france" displayName="France"/>
                     <CityCheckbox city="spain" displayName="Espagne"/>
                     <CityCheckbox city="italy" displayName="Italie"/>
                     <CityCheckbox city="greece" displayName="Grèce"/>
                     
-                    <p>XX résultats</p>
+                    <p>{this.state.totalResult} hôtel(s) trouvé(s)</p>
                 </div>
+
+                <div className="hotels_list-container" style={hotelListContainer}>
+
+                    {this.state.listHotels.map((hotel) => (
+                        <HotelCard  key={hotel.hotelId} data={hotel}/>
+                        
+                    ))}
+                </div>
+
 
             </section>
         )

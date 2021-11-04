@@ -1,5 +1,5 @@
 import React from 'react';
-import {paleBlue} from '../Const/Colors';
+//import {paleBlue} from '../Const/Colors';
 import '../assets/style/citycheckbox.css'
 
 class CityCheckbox extends React.Component {
