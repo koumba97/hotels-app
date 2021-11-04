@@ -46,12 +46,14 @@ class Hotels extends React.Component {
             listHotels: [],
             loading: true,
             departureDate:currentDate,
-            returnDate:currentDatePlus5Days,        
+            returnDate:currentDatePlus5Days,
+            selectedCountry:'FRA'    
         };
     }
 
     componentDidMount() {
         this.hotelsResult();
+        document.getElementById("FRA").checked = true;
     }
     updateDepartureDate(date) {
         this.setState({
@@ -63,8 +65,26 @@ class Hotels extends React.Component {
             returnDate: date
         });
     }
+
+    updateCountry(country){
+        this.setState({
+            selectedCountry: country,
+            listHotels: [],
+            totalResult:0,
+        });
+
+        axios.get('/hotels/'+country).then(response => {
+            console.log(response.data.data)
+            this.setState({
+                listHotels: response.data.data,
+                totalResult:response.data.pagination.total,
+            })
+        })
+    
+    }
+
     hotelsResult = async () => {
-        await axios.get('/hotels/FRA').then(response => {
+        await axios.get('/hotels/'+this.state.selectedCountry).then(response => {
             console.log(response.data.data)
             this.setState({
                 listHotels: response.data.data,
@@ -103,12 +123,13 @@ class Hotels extends React.Component {
                     <InputDate name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
                     <h5 style={{margin:'0px'}}>Recherche par pays</h5>
-                    <CountryRadio country="france" displayName="France"/>
-                    <CountryRadio country="spain" displayName="Espagne"/>
-                    <CountryRadio country="italy" displayName="Italie"/>
-                    <CountryRadio country="greece" displayName="Grèce"/>
+                    <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                    <CountryRadio country="spain" codeISO="ESP" displayName="Espagne" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                    <CountryRadio country="italy" codeISO="ITA" displayName="Italie" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                    <CountryRadio country="greece" codeISO="GRC" displayName="Grece" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
                     
                     <p>{this.state.totalResult} hôtel(s) trouvé(s)</p>
+                    {this.state.selectedCountry}
                 </div>
 
                 <div className="hotels_list-container" style={hotelListContainer}>
