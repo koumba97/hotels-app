@@ -3,6 +3,7 @@ import '../assets/style/hotel_card.css';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 class HotelCard extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class HotelCard extends React.Component {
         }
 
         return(
+            <Link to={"/hotel/"+hotel.hotelId}>
             <div className="hotel_card-container">
                 <div className="hotel_card-image" style={{backgroundImage:`url(${hotel.images[0].url})`}}>
                     <div className="hotel_card-city"><FontAwesomeIcon icon={faMapMarkerAlt} /> {hotel.address.city}</div>
@@ -44,6 +46,7 @@ class HotelCard extends React.Component {
                     />
                 </div>
             </div>
+            </Link>
         )
     }
 }

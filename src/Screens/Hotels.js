@@ -2,10 +2,11 @@ import React from 'react';
 import axios from 'axios';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faCalendar, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
-import {lightGrey} from '../Const/Colors';
-import InputDate from '../Components/InputDate';
+import DateInput from '../Components/DateInput';
 import CountryRadio from '../Components/CountryRadio';
 import HotelCard from '../Components/HotelCard';
+import HotelSelected from '../Components/HotelSelected';
+import '../assets/style/hotels_page.css';
 
 
 
@@ -47,13 +48,21 @@ class Hotels extends React.Component {
             loading: true,
             departureDate:currentDate,
             returnDate:currentDatePlus5Days,
-            selectedCountry:'FRA'    
+            selectedCountry:'FRA',
+            selectedHotel:false,
+            hotelData:[],
+
+            
         };
     }
 
     componentDidMount() {
         this.hotelsResult();
         document.getElementById("FRA").checked = true;
+
+        if (window.location.href.indexOf("hotel") > -1) {
+            this.hotelData();
+        }
     }
     updateDepartureDate(date) {
         this.setState({
@@ -69,8 +78,6 @@ class Hotels extends React.Component {
     updateCountry(country){
         this.setState({
             selectedCountry: country,
-            listHotels: [],
-            totalResult:0,
         });
 
         axios.get('/hotels/'+country).then(response => {
@@ -93,34 +100,24 @@ class Hotels extends React.Component {
         })
     }
 
-    render(){
-        const hotelResultContainer = {
-            backgroundColor:lightGrey,
-            paddingTop:'calc(50px + 20px)',
-            display:'flex',
-            height:'calc(100vh - 70px)',
-            overflow:'scroll'
-        }
-        const hotelFilterContainer = {
-            width:'200px',
-            backgroundColor: 'white',
-            padding:'30px',
-            display:'flex',
-            flexDirection:'column',
-            gap:'20px',
-        }
+    hotelData = async () => {
+        let hotelId = this.props.match.params.id;
+        await axios.get('/hotel/'+hotelId).then(response => {
+            console.log(response)
+            this.setState({
+                hotelData:response.data,
+                selectedHotel: true
+            })
+        })
+    }
 
-        const hotelListContainer = {
-            width:'calc(50% - 200px)',
-            padding:'20px',
-            gap:'30px',
-            overflow:'scroll',
-        }
+    render(){
+       
         return(
-            <section className='hotels_result-container' style={hotelResultContainer}>
-                <div className='hotel_filter-container' style={hotelFilterContainer}>
-                    <InputDate name="Date aller" value={this.state.departureDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
-                    <InputDate name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
+            <section className='hotel_result-container'>
+                <div className='hotel_filter-container'>
+                    <DateInput name="Date aller" value={this.state.departureDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
+                    <DateInput name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
                     <h5 style={{margin:'0px'}}>Recherche par pays</h5>
                     <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
@@ -129,17 +126,20 @@ class Hotels extends React.Component {
                     <CountryRadio country="greece" codeISO="GRC" displayName="Grece" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
                     
                     <p>{this.state.totalResult} hôtel(s) trouvé(s)</p>
-                    {this.state.selectedCountry}
                 </div>
 
-                <div className="hotels_list-container" style={hotelListContainer}>
+                <div className="result-container">
+                    <div className="hotels_list-container">
+                        {this.state.listHotels.map((hotel) => (
+                            <HotelCard  key={hotel.hotelId} data={hotel}/>
+                        ))}
+                    </div>
 
-                    {this.state.listHotels.map((hotel) => (
-                        <HotelCard  key={hotel.hotelId} data={hotel}/>
-                    ))}
+                    {this.state.selectedHotel ? 
+                        <HotelSelected data={this.state.hotelData}/> 
+                        
+                    : null }
                 </div>
-
-
             </section>
         )
     }

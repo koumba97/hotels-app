@@ -8,8 +8,50 @@ const apiToken = 'sandb_iizLheGLJiVaJVEOMzXF97mutZTvh4V1Eb1LUxfq';
 
 
 app.get('/hotels/:country', async function (req, res) {
-    let countryCode =req.params.country;
-    await axios.get('http://hotel.leavy.voyage/v1/hotels?size=1000&country[eq]='+countryCode,{
+    let countryCode = req.params.country;
+    //let start = req.params.start;
+    await axios.get('http://hotel.leavy.voyage/v1/hotels?country[eq]='+countryCode,{
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-API-KEY': apiToken,
+        },
+    }, req)
+    .then(resp => {
+        console.log(resp.data);
+        res.send(resp.data);
+    })
+    .catch(function (error){
+        console.log(error.message);
+        res.send(error);
+    });
+
+})
+
+app.get('/hotel/:id', async function (req, res) {
+    let hotelId = req.params.id;
+   
+    await axios.get('http://hotel.leavy.voyage/v1/hotels/'+hotelId,{
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-API-KEY': apiToken,
+        },
+    }, req)
+    .then(resp => {
+        console.log(resp.data);
+        res.send(resp.data);
+    })
+    .catch(function (error){
+        console.log(error.message);
+        res.send(error);
+    });
+
+})
+
+app.get('/hotels/test', async function (req, res) {
+    let countryCode = "ESP";
+    let start = "2021-12-31";
+    let end = "2022-01-10";
+    await axios.get('http://hotel.leavy.voyage/v1/hotels?country[eq]='+countryCode+'&start='+start+'&end='+end,{
         headers: {
             'Content-Type': 'application/json', 
             'X-API-KEY': apiToken,

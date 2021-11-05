@@ -41,6 +41,14 @@ class App extends Component {
                             }
                         } />
 
+                        <Route path="/hotel/:id" exact render={
+                            (props) => {
+                                return (
+                                    <Hotels key={props.match.params.id} {...props} />
+                                )
+                            }
+                        } />
+
                         <Route path="*" render={
                             () => {
                                 return <Redirect to="/" />

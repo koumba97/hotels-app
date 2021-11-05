@@ -1,0 +1,24 @@
+.date-container{
+    border:solid 3px rgb(187, 211, 243);
+    border-radius:10px;
+    height:45px;
+    justify-content:space-between;
+    display:flex;
+    flex-direction:column;
+}
+.date-input{
+    outline:none;
+    border:none;
+    font-family:Nunito;
+    background-color:transparent;
+    margin:auto;
+    font-size:17px;
+}
+.date-label{
+    position:relative;
+    background-color:white; 
+    left:10px;
+    top:6px; 
+    padding:5px;
+    color:rgb(187, 211, 243);
+}
