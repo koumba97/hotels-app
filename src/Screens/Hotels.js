@@ -51,28 +51,37 @@ class Hotels extends React.Component {
             selectedCountry:'FRA',
             selectedHotel:false,
             hotelData:[],
-
-            
         };
     }
 
     componentDidMount() {
         this.hotelsResult();
         document.getElementById("FRA").checked = true;
-
-        if (window.location.href.indexOf("hotel") > -1) {
-            this.hotelData();
-        }
     }
+
     updateDepartureDate(date) {
         this.setState({
             departureDate: date
         });
+        axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate+'/').then(response => {
+            console.log(response.data.data)
+            this.setState({
+                listHotels: response.data.data,
+                totalResult:response.data.pagination.total,
+            })
+        })
     }
     updateReturnDate(date) {
         this.setState({
             returnDate: date
         });
+        axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate+'/').then(response => {
+            console.log(response.data.data)
+            this.setState({
+                listHotels: response.data.data,
+                totalResult:response.data.pagination.total,
+            })
+        })
     }
 
     updateCountry(country){
@@ -87,11 +96,10 @@ class Hotels extends React.Component {
                 totalResult:response.data.pagination.total,
             })
         })
-    
     }
 
     hotelsResult = async () => {
-        await axios.get('/hotels/'+this.state.selectedCountry).then(response => {
+        await axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate+'/').then(response => {
             console.log(response.data.data)
             this.setState({
                 listHotels: response.data.data,
@@ -100,8 +108,7 @@ class Hotels extends React.Component {
         })
     }
 
-    hotelData = async () => {
-        let hotelId = this.props.match.params.id;
+    hotelData = async (hotelId) => {
         await axios.get('/hotel/'+hotelId).then(response => {
             console.log(response)
             this.setState({
@@ -109,6 +116,10 @@ class Hotels extends React.Component {
                 selectedHotel: true
             })
         })
+    }
+
+    changeSelectedHotel(hotelId){
+        this.hotelData(hotelId); 
     }
 
     render(){
@@ -131,14 +142,11 @@ class Hotels extends React.Component {
                 <div className="result-container">
                     <div className="hotels_list-container">
                         {this.state.listHotels.map((hotel) => (
-                            <HotelCard  key={hotel.hotelId} data={hotel}/>
+                            <HotelCard  key={hotel.hotelId} data={hotel} onClick={() => this.changeSelectedHotel(hotel.hotelId)}/>
                         ))}
                     </div>
-
-                    {this.state.selectedHotel ? 
-                        <HotelSelected data={this.state.hotelData}/> 
-                        
-                    : null }
+                    
+                    {this.state.selectedHotel ? <HotelSelected key={this.state.hotelData.hotelId} data={this.state.hotelData}/> : null }
                 </div>
             </section>
         )

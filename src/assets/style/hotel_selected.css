@@ -18,3 +18,18 @@
     border-top-left-radius:20px;
     border-top-right-radius:20px
 }
+.slider-wrapper{
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+}
+.carousel_element-image{
+    height: 200px;
+    object-fit: cover;
+}
+.hotel_details-container{
+    padding: 10px 20px;
+}
+.hotel_name{
+    margin: 0px;
+    font-family: Nunito;
+}

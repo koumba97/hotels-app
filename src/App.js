@@ -33,15 +33,7 @@ class App extends Component {
                 <Router>
                     <Navbar/>
                     <Switch>
-                        <Route path="/" exact render={
-                            () => {
-                                return (
-                                    <Hotels/>
-                                )
-                            }
-                        } />
-
-                        <Route path="/hotel/:id" exact render={
+                        <Route path="/:id?" exact render={
                             (props) => {
                                 return (
                                     <Hotels key={props.match.params.id} {...props} />
