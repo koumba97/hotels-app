@@ -3,7 +3,6 @@ import '../assets/style/hotel_card.css';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
 
 class HotelCard extends React.Component {
     constructor(props) {

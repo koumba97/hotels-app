@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../assets/style/hotel_selected.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import StarRatings from 'react-star-ratings';
@@ -20,13 +20,12 @@ class HotelSelected extends React.Component {
             });
             this.setState({
                 resetSlide:false
-             });
+            });
         }
     }
     render(props){
         let hotel = this.props.data;
         let hotelName = hotel.name.substring(0, hotel.name.length - "[SANDBOX]".length);
-        
         return(
             <div className="hotel_selected-container">
                 <div className="hotel_selected-box">
@@ -41,7 +40,7 @@ class HotelSelected extends React.Component {
                             height="200"
                         >
                             {hotel.images.map((image, index) => (
-                                <div className="carousel_element-container">
+                                <div className="carousel_element-container" key={index}>
                                     <img src={hotel.images[index].url} className="carousel_element-image"/>
                                 </div>
                             ))}

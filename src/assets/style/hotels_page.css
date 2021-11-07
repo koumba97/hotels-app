@@ -1,13 +1,13 @@
 .hotel_result-container{
     background-color:rgb(248 247 255);
-    padding-top:calc(50px + 20px);
+    padding-top:calc(50px + 10px * 2 ); /* nav's height + its padding * 2 */
     display:flex;
     height:calc(100vh - 70px);
     overflow:scroll;
 }
 .hotel_filter-container{
     width:200px;
-    height:100vh;
+    height:calc(100vh - (70px + 30px * 2)); /* height's screen - (nav's height + container padding * 2 )*/
     background-color:white;
     padding:30px;
     display:flex;
@@ -26,5 +26,22 @@
     display:flex;
     width: 100%;
     height: max-content;
-    margin-left:calc(200px + 20px * 2 + 20px);
+    margin-left:calc(200px + 30px * 2); /* filter container's width + filter container's padding * 2 */
+}
+
+.hotels_result-p{
+    margin-top: auto;
+}
+
+
+.date_filter-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.date_filter-label{
+
+}
+.date_filter-label{
+
 }

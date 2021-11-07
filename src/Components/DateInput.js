@@ -16,13 +16,17 @@ class DateInput extends React.Component {
         let name = this.props.name;
         let defaultValue = this.props.value;
         let idInput = this.props.idInput;
+        let disableDate = this.props.disabled
 
-        
         return(
-            <div className='departure_date-container' >
+            <div className={disableDate ? 'departure_date-container disable_date' : 'departure_date-container' } >
                 <label htmlFor={idInput} className="date-label">{name}</label>
                 <div className="date-container">
-                    <input type="date" className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/>
+
+                    {disableDate ? 
+                        <input type="date" disabled className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/> :
+                        <input type="date" className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/>}
+                
                 </div>
             </div>
         )

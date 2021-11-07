@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Switch from "react-switch";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faCalendar, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import DateInput from '../Components/DateInput';
@@ -50,6 +51,7 @@ class Hotels extends React.Component {
             returnDate:currentDatePlus5Days,
             selectedCountry:'FRA',
             selectedHotel:false,
+            searchPerDate: false,
             hotelData:[],
         };
     }
@@ -57,6 +59,15 @@ class Hotels extends React.Component {
     componentDidMount() {
         this.hotelsResult();
         document.getElementById("FRA").checked = true;
+    }
+
+    switchDateFilter = (checked) => {
+        this.setState({ 
+            searchPerDate : checked,
+        });
+        console.log(checked)
+        this.hotelsResult(checked);
+
     }
 
     updateDepartureDate(date) {
@@ -98,14 +109,33 @@ class Hotels extends React.Component {
         })
     }
 
-    hotelsResult = async () => {
-        await axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate+'/').then(response => {
-            console.log(response.data.data)
-            this.setState({
-                listHotels: response.data.data,
-                totalResult:response.data.pagination.total,
+    hotelsResult = async (checked=null) => {
+        if(checked){
+            console.log('with date')
+            await axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate).then(response => {
+                console.log(response.data.data)
+                if(response.data){
+                    this.setState({
+                        ...this.state,
+                        listHotels: response.data.data,
+                        totalResult:response.data.pagination.total,
+                    })
+                }
             })
-        })
+        }
+        else{
+            console.log('without date')
+            await axios.get('/hotels/'+this.state.selectedCountry).then(response => {
+                console.log(response.data.data)
+                if(response.data){
+                    this.setState({
+                        ...this.state,
+                        listHotels: response.data.data,
+                        totalResult:response.data.pagination.total,
+                    })
+                }
+            })
+        }
     }
 
     hotelData = async (hotelId) => {
@@ -127,8 +157,13 @@ class Hotels extends React.Component {
         return(
             <section className='hotel_result-container'>
                 <div className='hotel_filter-container'>
-                    <DateInput name="Date aller" value={this.state.departureDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
-                    <DateInput name="Date retour" value={this.state.returnDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
+                    <div className="date_filter-container">
+                        <label className="date_filter-label">Recherche par dates </label>
+                        <Switch className="date_switch_button" height={20} width={40} onChange={()=> this.switchDateFilter(!this.state.searchPerDate)} checked={this.state.searchPerDate}/>
+                    </div>
+                    
+                    <DateInput name="Date aller" value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
+                    <DateInput name="Date retour" value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
                     <h5 style={{margin:'0px'}}>Recherche par pays</h5>
                     <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
@@ -136,7 +171,7 @@ class Hotels extends React.Component {
                     <CountryRadio country="italy" codeISO="ITA" displayName="Italie" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
                     <CountryRadio country="greece" codeISO="GRC" displayName="Grece" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
                     
-                    <p>{this.state.totalResult} hôtel(s) trouvé(s)</p>
+                    <p className="hotels_result-p">{this.state.totalResult} hôtel(s) trouvé(s)</p>
                 </div>
 
                 <div className="result-container">
