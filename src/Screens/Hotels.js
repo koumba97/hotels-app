@@ -1,14 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import Switch from "react-switch";
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { faCalendar, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import DateInput from '../Components/DateInput';
 import CountryRadio from '../Components/CountryRadio';
 import HotelCard from '../Components/HotelCard';
 import HotelSelected from '../Components/HotelSelected';
 import '../assets/style/hotels_page.css';
-
 
 
 // get current date
@@ -53,6 +50,7 @@ class Hotels extends React.Component {
             selectedHotel:false,
             searchPerDate: false,
             hotelData:[],
+            displayingHotels:10,
         };
     }
 
@@ -65,58 +63,44 @@ class Hotels extends React.Component {
         this.setState({ 
             searchPerDate : checked,
         });
-        console.log(checked)
         this.hotelsResult(checked);
-
     }
 
     updateDepartureDate(date) {
         this.setState({
             departureDate: date
         });
-        axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate+'/').then(response => {
-            console.log(response.data.data)
-            this.setState({
-                listHotels: response.data.data,
-                totalResult:response.data.pagination.total,
-            })
-        })
+        this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels, this.state.selectedCountry, date, this.state.returnDate,);
     }
     updateReturnDate(date) {
         this.setState({
             returnDate: date
         });
-        axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate+'/').then(response => {
-            console.log(response.data.data)
-            this.setState({
-                listHotels: response.data.data,
-                totalResult:response.data.pagination.total,
-            })
-        })
+        this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels, this.state.selectedCountry, this.state.departureDate, date);
     }
+
+    handleScroll = (e) => {
+        if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) { 
+            this.setState({
+                displayingHotels: this.state.displayingHotels+10
+            });
+            this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels+10, this.state.selectedCountry, this.state.departureDate, date);
+        }
+      }
 
     updateCountry(country){
         this.setState({
             selectedCountry: country,
         });
-
-        axios.get('/hotels/'+country).then(response => {
-            console.log(response.data.data)
-            this.setState({
-                listHotels: response.data.data,
-                totalResult:response.data.pagination.total,
-            })
-        })
+        this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels, country, this.state.departureDate, this.state.returnDate);
     }
 
-    hotelsResult = async (checked=null) => {
+    hotelsResult = async (checked=null, size=10, country="FRA", departureDate=this.state.departureDate, returnDate=this.state.returnDate) => {
         if(checked){
-            console.log('with date')
-            await axios.get('/hotels/'+this.state.selectedCountry+'/'+this.state.departureDate+'/'+this.state.returnDate).then(response => {
+            await axios.get('/hotels/'+size+'/'+country+'/'+departureDate+'/'+returnDate).then(response => {
                 console.log(response.data.data)
-                if(response.data){
+                if(response.data && response.data.pagination){
                     this.setState({
-                        ...this.state,
                         listHotels: response.data.data,
                         totalResult:response.data.pagination.total,
                     })
@@ -124,10 +108,9 @@ class Hotels extends React.Component {
             })
         }
         else{
-            console.log('without date')
-            await axios.get('/hotels/'+this.state.selectedCountry).then(response => {
+            await axios.get('/hotels/'+size+'/'+country).then(response => {
                 console.log(response.data.data)
-                if(response.data){
+                if(response.data && response.data.pagination && response.data.pagination.total){
                     this.setState({
                         ...this.state,
                         listHotels: response.data.data,
@@ -140,7 +123,6 @@ class Hotels extends React.Component {
 
     hotelData = async (hotelId) => {
         await axios.get('/hotel/'+hotelId).then(response => {
-            console.log(response)
             this.setState({
                 hotelData:response.data,
                 selectedHotel: true
@@ -153,17 +135,16 @@ class Hotels extends React.Component {
     }
 
     render(){
-       
         return(
-            <section className='hotel_result-container'>
+            <section className='hotel_result-container' onScroll={this.handleScroll}>
                 <div className='hotel_filter-container'>
                     <div className="date_filter-container">
                         <label className="date_filter-label">Recherche par dates </label>
                         <Switch className="date_switch_button" height={20} width={40} onChange={()=> this.switchDateFilter(!this.state.searchPerDate)} checked={this.state.searchPerDate}/>
                     </div>
                     
-                    <DateInput name="Date aller" value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
-                    <DateInput name="Date retour" value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
+                    <DateInput name="Date aller" max={this.state.returnDate} value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
+                    <DateInput name="Date retour" min={this.state.departureDate} value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
                     <h5 style={{margin:'0px'}}>Recherche par pays</h5>
                     <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
