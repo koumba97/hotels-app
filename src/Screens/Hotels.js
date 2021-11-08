@@ -53,13 +53,19 @@ class Hotels extends React.Component {
             searchPerDate: false,
             hotelData:[],
             displayingHotels:10,
-            filterSlideShown:true,
+            filterSlideShown:false,
+            windowSize: window.innerWidth
         };
     }
 
     componentDidMount() {
         this.hotelsResult();
+        window.addEventListener("resize", this.handleResize);
         document.getElementById("FRA").checked = true;
+    }
+
+    handleResize = () => {
+        this.setState({windowSize: window.innerWidth});
     }
 
     switchDateFilter = (checked) => {
@@ -136,6 +142,7 @@ class Hotels extends React.Component {
     }
 
     toogleFilters(){
+     
         this.setState({
             filterSlideShown:!this.state.filterSlideShown,
         })
@@ -144,7 +151,7 @@ class Hotels extends React.Component {
         return(
             <>
             <section className='hotel_result-container' onScroll={this.handleScroll}>
-                <div className={!this.state.filterSlideShown && window.innerWidth<=950 ? 'hotel_filter-container hidden_slide' : 'hotel_filter-container shown_slide'  } >
+                <div className={!this.state.filterSlideShown && this.state.windowSize<=950 ? 'hotel_filter-container hidden_slide' : 'hotel_filter-container shown_slide'} >
                     <div className="filters">
 
                         <div className="date_filter-container">
