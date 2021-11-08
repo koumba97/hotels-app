@@ -18,7 +18,7 @@
 
 .hotels_list-container{
     width:450px;
-    padding:20px;
+    padding:0px 20px;
     gap:30px;
 }
 
@@ -27,6 +27,8 @@
     width: 100%;
     height: max-content;
     margin-left:calc(200px + 30px * 2); /* filter container's width + filter container's padding * 2 */
+    padding-right: 30px;
+    padding-top: 20px;
 }
 
 .hotels_result-p{
@@ -44,4 +46,36 @@
 }
 .date_filter-label{
 
+}
+
+@media screen and (max-width: 1200px) {
+    .hotels_list-container{
+        width:45%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .hotel_filter-container{
+        display: none;
+    }
+    .hotels_list-container{
+       padding: 0px;
+    }
+    .result-container{
+        justify-content: space-around;
+        margin-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .hotels_list-container{
+        width:100%;
+        padding: 30px;
+
+    }
+    .result-container{
+        margin: 0px;
+        padding:0px;
+    }
 }

@@ -1,6 +1,7 @@
 .hotel_selected-container{
-    padding: 20px;
-    width: 400px;
+    padding: 0px 20px;
+    width: 400px;    
+    border: solid;
 }
 .hotel_selected-box{
     position: fixed;
@@ -9,6 +10,7 @@
     background-color: white;
     border-radius: 20px;
     border:solid 2px rgb(230 230 230);
+
 }
 
 .hotel-carousel{
@@ -32,4 +34,31 @@
 .hotel_name{
     margin: 0px;
     font-family: Nunito;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .hotel_selected-container{
+        width: 350px;
+    }
+    .hotel_selected-box{
+        width: 350px;
+       
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .hotel_selected-container{
+        width: 45%;
+        padding: 0px;
+    }
+    .hotel_selected-box{
+        width:45%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .hotel_selected-container{
+        display: none;
+    }
 }

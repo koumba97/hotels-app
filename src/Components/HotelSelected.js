@@ -41,7 +41,7 @@ class HotelSelected extends React.Component {
                         >
                             {hotel.images.map((image, index) => (
                                 <div className="carousel_element-container" key={index}>
-                                    <img src={hotel.images[index].url} className="carousel_element-image"/>
+                                    <img src={hotel.images[index].url} alt={hotel.images[index].altText} className="carousel_element-image"/>
                                 </div>
                             ))}
                         </Carousel>

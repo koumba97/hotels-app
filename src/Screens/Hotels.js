@@ -86,7 +86,7 @@ class Hotels extends React.Component {
             });
             this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels+10, this.state.selectedCountry, this.state.departureDate, date);
         }
-      }
+    }
 
     updateCountry(country){
         this.setState({
@@ -98,7 +98,6 @@ class Hotels extends React.Component {
     hotelsResult = async (checked=null, size=10, country="FRA", departureDate=this.state.departureDate, returnDate=this.state.returnDate) => {
         if(checked){
             await axios.get('/hotels/'+size+'/'+country+'/'+departureDate+'/'+returnDate).then(response => {
-                console.log(response.data.data)
                 if(response.data && response.data.pagination){
                     this.setState({
                         listHotels: response.data.data,
@@ -109,7 +108,6 @@ class Hotels extends React.Component {
         }
         else{
             await axios.get('/hotels/'+size+'/'+country).then(response => {
-                console.log(response.data.data)
                 if(response.data && response.data.pagination && response.data.pagination.total){
                     this.setState({
                         ...this.state,
