@@ -27,7 +27,7 @@ class HotelSelected extends React.Component {
         let hotel = this.props.data;
         let hotelName = hotel.name.substring(0, hotel.name.length - "[SANDBOX]".length);
         return(
-            <div className="hotel_selected-container">
+           
                 <div className="hotel_selected-box">
 
                     {!this.state.resetSlide ?
@@ -62,7 +62,7 @@ class HotelSelected extends React.Component {
                     </div>
                  
                 </div>
-            </div>
+
         )
     }
 }

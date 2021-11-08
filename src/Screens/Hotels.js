@@ -5,6 +5,8 @@ import DateInput from '../Components/DateInput';
 import CountryRadio from '../Components/CountryRadio';
 import HotelCard from '../Components/HotelCard';
 import HotelSelected from '../Components/HotelSelected';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import '../assets/style/hotels_page.css';
 
 
@@ -51,6 +53,7 @@ class Hotels extends React.Component {
             searchPerDate: false,
             hotelData:[],
             displayingHotels:10,
+            filterSlideShown:true,
         };
     }
 
@@ -132,25 +135,35 @@ class Hotels extends React.Component {
         this.hotelData(hotelId); 
     }
 
+    toogleFilters(){
+        this.setState({
+            filterSlideShown:!this.state.filterSlideShown,
+        })
+    }
     render(){
         return(
+            <>
             <section className='hotel_result-container' onScroll={this.handleScroll}>
-                <div className='hotel_filter-container'>
-                    <div className="date_filter-container">
-                        <label className="date_filter-label">Recherche par dates </label>
-                        <Switch className="date_switch_button" height={20} width={40} onChange={()=> this.switchDateFilter(!this.state.searchPerDate)} checked={this.state.searchPerDate}/>
-                    </div>
-                    
-                    <DateInput name="Date aller" max={this.state.returnDate} value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
-                    <DateInput name="Date retour" min={this.state.departureDate} value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
+                <div className={!this.state.filterSlideShown && window.innerWidth<=950 ? 'hotel_filter-container hidden_slide' : 'hotel_filter-container shown_slide'  } >
+                    <div className="filters">
 
-                    <h5 style={{margin:'0px'}}>Recherche par pays</h5>
-                    <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
-                    <CountryRadio country="spain" codeISO="ESP" displayName="Espagne" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
-                    <CountryRadio country="italy" codeISO="ITA" displayName="Italie" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
-                    <CountryRadio country="greece" codeISO="GRC" displayName="Grece" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
-                    
-                    <p className="hotels_result-p">{this.state.totalResult} hôtel(s) trouvé(s)</p>
+                        <div className="date_filter-container">
+                            <label className="date_filter-label">Recherche par dates </label>
+                            <Switch className="date_switch_button" height={20} width={40} onChange={()=> this.switchDateFilter(!this.state.searchPerDate)} checked={this.state.searchPerDate}/>
+                        </div>
+                        
+                        <DateInput name="Date aller" max={this.state.returnDate} value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
+                        <DateInput name="Date retour" min={this.state.departureDate} value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
+
+                        <h5 style={{margin:'0px'}}>Recherche par pays</h5>
+                        <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                        <CountryRadio country="spain" codeISO="ESP" displayName="Espagne" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                        <CountryRadio country="italy" codeISO="ITA" displayName="Italie" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                        <CountryRadio country="greece" codeISO="GRC" displayName="Grece" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
+                        
+                        <p className="hotels_result-p">{this.state.totalResult} hôtel(s) trouvé(s)</p>
+                    </div>
+                    <div className="filter-btn" onClick={() => this.toogleFilters()}><FontAwesomeIcon icon={faSlidersH} /></div>
                 </div>
 
                 <div className="result-container">
@@ -160,9 +173,14 @@ class Hotels extends React.Component {
                         ))}
                     </div>
                     
-                    {this.state.selectedHotel ? <HotelSelected key={this.state.hotelData.hotelId} data={this.state.hotelData}/> : null }
+                    <div className="hotel_selected-container">
+                        {this.state.selectedHotel ? <HotelSelected key={this.state.hotelData.hotelId} data={this.state.hotelData}/> : null }
+                    </div>
                 </div>
             </section>
+
+            {/* <div className="small_filter-container">okok</div> */}
+            </>
         )
     }
 }
