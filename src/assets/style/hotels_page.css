@@ -74,12 +74,7 @@
     align-items: center;
     justify-content: space-between;
 }
-.date_filter-label{
 
-}
-.date_filter-label{
-
-}
 
 .small_filter-container{
     height: 50px;
@@ -109,6 +104,14 @@
         gap: 30px;
         margin-left: 0px;
         padding-right: 0px;
+    }
+    .hotel_bg{
+        background-color: rgba(0, 0, 0, 0.438);
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0px;
+        left: 0px;
     }
 }
 

@@ -35,7 +35,22 @@
     font-family: Nunito;
 }
 
+.close_btn{
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    z-index: 2;
+    margin-left: 315px;
+    margin-top: 10px;
+    display: flex;
+}
 
+.close_btn svg{
+    margin: auto;
+    align-self: center;
+    font-size: 20px;
+    color: white;
+}
 @media screen and (max-width: 1200px) {
     .hotel_selected-container{
         width: 350px;
@@ -59,5 +74,13 @@
 @media screen and (max-width: 650px) {
     .hotel_selected-container{
         display: none;
+    }
+    .hotel_selected-box{
+        width:70vw;
+        height: 70vh;
+        top: 50%;
+        left: 50%;
+        margin-top: -30vh; /* Negative half of height. */
+        margin-left: -35vw; /* Negative half of width. */
     }
 }

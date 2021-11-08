@@ -3,6 +3,8 @@ import '../assets/style/hotel_selected.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import StarRatings from 'react-star-ratings';
 import { Carousel } from 'react-responsive-carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class HotelSelected extends React.Component {
     constructor(props) {
@@ -27,7 +29,8 @@ class HotelSelected extends React.Component {
         let hotel = this.props.data;
         let hotelName = hotel.name.substring(0, hotel.name.length - "[SANDBOX]".length);
         return(
-           
+            <>
+                <div className="close_btn"><FontAwesomeIcon icon={faTimes} onClick={this.props.closingButton} /></div>
                 <div className="hotel_selected-box">
 
                     {!this.state.resetSlide ?
@@ -62,6 +65,7 @@ class HotelSelected extends React.Component {
                     </div>
                  
                 </div>
+            </>
 
         )
     }

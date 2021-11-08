@@ -140,9 +140,14 @@ class Hotels extends React.Component {
     changeSelectedHotel(hotelId){
         this.hotelData(hotelId); 
     }
+    closeHotelModal = () =>{
+        
+        this.setState({
+            selectedHotel:!this.state.selectedHotel,
+        })
+    }
 
     toogleFilters(){
-     
         this.setState({
             filterSlideShown:!this.state.filterSlideShown,
         })
@@ -181,12 +186,17 @@ class Hotels extends React.Component {
                     </div>
                     
                     <div className="hotel_selected-container">
-                        {this.state.selectedHotel ? <HotelSelected key={this.state.hotelData.hotelId} data={this.state.hotelData}/> : null }
+                        {this.state.selectedHotel ? <HotelSelected key={this.state.hotelData.hotelId} data={this.state.hotelData} closingButton={this.closeHotelModal}/> : null }
                     </div>
+                    {this.state.windowSize<=650 && this.state.selectedHotel ? 
+                        <>
+                            <div className="hotel_bg" onClick={() => this.closeHotelModal()}></div>
+                            <HotelSelected key={this.state.hotelData.hotelId} data={this.state.hotelData} closingButton={this.closeHotelModal}/>
+                        </>
+                    : null}
                 </div>
             </section>
 
-            {/* <div className="small_filter-container">okok</div> */}
             </>
         )
     }
