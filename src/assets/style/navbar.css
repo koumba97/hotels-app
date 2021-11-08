@@ -1,6 +1,7 @@
 .search_input-container{
     border-radius:20px;
-    border:solid 2px rgb(187, 211, 243);
+    /* border:solid 2px rgb(187, 211, 243); */
+    background-color: rgb(241, 241, 241);
     display:flex;
     justify-content:space-between;
     padding:10px;

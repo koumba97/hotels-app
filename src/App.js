@@ -3,6 +3,11 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 //styles & fonts
+import './assets/style/hotel_selected.css';
+import './assets/style/country_radio.css';
+import './assets/style/date_input.css';
+import './assets/style/hotel_card.css';
+import './assets/style/fonts.css';
 
 //components
 import Navbar from "./Components/Navbar";

@@ -164,8 +164,8 @@ class Hotels extends React.Component {
                             <Switch className="date_switch_button" height={20} width={40} onChange={()=> this.switchDateFilter(!this.state.searchPerDate)} checked={this.state.searchPerDate}/>
                         </div>
                         
-                        <DateInput name="Date aller" max={this.state.returnDate} value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
-                        <DateInput name="Date retour" min={this.state.departureDate} value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
+                        <DateInput name="Date arrivée" max={this.state.returnDate} value={this.state.departureDate} disabled={!this.state.searchPerDate} idInput="departureDate" updateDate={this.updateDepartureDate.bind(this)}/>
+                        <DateInput name="Date départ" min={this.state.departureDate} value={this.state.returnDate} disabled={!this.state.searchPerDate} idInput="returnDate" updateDate={this.updateReturnDate.bind(this)}/>
 
                         <h5 style={{margin:'0px'}}>Recherche par pays</h5>
                         <CountryRadio country="france" codeISO="FRA" displayName="France" selectedCountry={this.state.selectedCountry} updateCountry={this.updateCountry.bind(this)}/>
@@ -181,7 +181,7 @@ class Hotels extends React.Component {
                 <div className="result-container">
                     <div className="hotels_list-container">
                         {this.state.listHotels.map((hotel) => (
-                            <HotelCard  key={hotel.hotelId} data={hotel} onClick={() => this.changeSelectedHotel(hotel.hotelId)}/>
+                            <HotelCard  key={hotel.hotelId} data={hotel} selected={this.state.selectedHotel && this.state.hotelData.hotelId===hotel.hotelId ? true : false}onClick={() => this.changeSelectedHotel(hotel.hotelId)}/>
                         ))}
                     </div>
                     

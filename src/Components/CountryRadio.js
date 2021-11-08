@@ -1,7 +1,4 @@
 import React from 'react';
-//import {paleBlue} from '../Const/Colors';
-import '../assets/style/country_radio.css';
-
 class CountryRadio extends React.Component {
     constructor(props) {
         super(props)

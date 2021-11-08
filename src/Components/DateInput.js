@@ -1,6 +1,4 @@
 import React from 'react';
-import '../assets/style/date_input.css';
-
 class DateInput extends React.Component {
     constructor(props) {
         super(props)
@@ -25,8 +23,8 @@ class DateInput extends React.Component {
                 <label htmlFor={idInput} className="date-label">{name}</label>
                 <div className="date-container">
                     {disableDate ? 
-                    <input type="date" max={name==="Date aller" ? maxDate : null } min={name==="Date retour" ? minDate : null } disabled className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/> :
-                    <input type="date"  max={name==="Date aller" ? maxDate : null } min={name==="Date retour" ? minDate : null }className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/>}
+                    <input type="date" max={name==="Date arrivée" ? maxDate : null } min={name==="Date départ" ? minDate : null } disabled className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/> :
+                    <input type="date"  max={name==="Date arrivée" ? maxDate : null } min={name==="Date départ" ? minDate : null }className="date-input" value={defaultValue} id={idInput} onChange={this.updateDate.bind(this)}/>}
                 </div>
             </div>
         )
