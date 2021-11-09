@@ -1,10 +1,5 @@
-import React from 'react';
-class DateInput extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        };
-    }
+import React, {Component} from 'react';
+class DateInput extends Component {
 
     updateDate(event) {
         this.props.updateDate(event.target.value);

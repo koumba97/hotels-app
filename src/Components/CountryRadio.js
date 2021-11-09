@@ -1,10 +1,5 @@
-import React from 'react';
-class CountryRadio extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        };
-    }
+import React, {Component} from 'react';
+class CountryRadio extends Component {
 
     updateCountry(event) {
         this.props.updateCountry(event.target.id);

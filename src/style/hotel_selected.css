@@ -1,0 +1,92 @@
+.hotel_selected-container{
+    padding: 0px 20px;
+    width: 400px;    
+}
+
+.hotel_selected-box{
+    position: fixed;
+    max-height: 500px;
+    width: 400px;
+    background-color: white;
+    border-radius: 20px;
+    border:solid 2px rgb(230 230 230);
+}
+
+.hotel-carousel{
+    height: 300px;
+    background-color: rgb(239, 251, 255);
+    background-size: cover;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+}
+.hotel_description{
+    height: 200px;
+    overflow: scroll;
+}
+.slider-wrapper{
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+}
+.carousel_element-image{
+    height: 200px;
+    object-fit: cover;
+}
+.hotel_details-container{
+    padding: 10px 20px;
+}
+.hotel_name{
+    margin: 0px;
+    font-family: Nunito;
+}
+
+.top_box{
+    width: calc(100% - 40px);
+    z-index: 3;
+    margin-left: auto;
+    position: absolute;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.top_box .close_btn{
+    font-size: 20px;
+    color: white;
+}
+@media screen and (max-width: 1200px) {
+    .hotel_selected-container{
+        width: 350px;
+    }
+    .hotel_selected-box{
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .hotel_selected-container{
+        width: 45%;
+        padding: 0px;
+    }
+    .hotel_selected-box{
+        width:45%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .hotel_selected-container{
+        display: none;
+    }
+    .hotel_selected-box{
+        width:70vw;
+        height: 70vh;
+        top: 50%;
+        left: 50%;
+        margin-top: -30vh; /* Negative half of height. */
+        margin-left: -35vw; /* Negative half of width. */
+    }
+    .hotel_description{
+        font-size: 13px;
+        height: 100px;
+    }
+}

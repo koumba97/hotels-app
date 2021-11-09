@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import StarRatings from 'react-star-ratings';
 import { Carousel } from 'react-responsive-carousel';
@@ -8,7 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 library.add(faHeart, faHeartRegular)
-class HotelSelected extends React.Component {
+class HotelSelected extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -20,11 +20,11 @@ class HotelSelected extends React.Component {
         if (this.props.data.hotelId !== prevProps.data.hotelId) {
             //re render carousel if hotelId changes
             this.setState({
-               resetSlide:true
-            });
-            this.setState({
-                resetSlide:false
-            });
+                resetSlide:true
+            },  () => this.setState({
+                    resetSlide:false
+                })
+            );
         }
     }
     render(props){

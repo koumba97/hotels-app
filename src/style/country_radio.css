@@ -1,0 +1,42 @@
+.country_radio-container + label{
+    border-radius: 10px;
+    background-color: white;
+    transition-duration: 0.5s;
+    height: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.country_radio-image{
+    width: 40px;
+    height: 80%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.icon-greece{
+    background-image: url('../assets/images/countries/greece.png');
+}
+.icon-france{
+    background-image: url('../assets/images/countries/france.png');
+}
+.icon-italy{
+    background-image: url('../assets/images/countries/italy.png');
+}
+.icon-spain{
+    background-image: url('../assets/images/countries/spain.png');
+}
+
+.country_radio-container:hover + label{
+    background-color: rgb(179, 189, 245);
+}
+.country_radio-container:checked + label{
+    background-color: rgb(235, 235, 238);
+}
+
+
+
+input[type=radio]{
+    display: none;
+}

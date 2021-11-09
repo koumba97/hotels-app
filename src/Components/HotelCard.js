@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -7,12 +7,7 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
 
 library.add(faHeart, faHeartRegular)
 
-class HotelCard extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        };
-    }
+class HotelCard extends Component {
 
     render(props){
         let hotel = this.props.data;

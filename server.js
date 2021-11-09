@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const axios = require('axios');
-var cors = require('cors');
+const cors = require('cors');
+const port = '4242';
 app.use(cors({origin: true, credentials: true}));
 
 const apiToken = 'sandb_iizLheGLJiVaJVEOMzXF97mutZTvh4V1Eb1LUxfq';
@@ -14,7 +15,7 @@ app.get('/hotels/:size/:country/:start?/:end?', async function (req, res) {
     let size = req.params.size;
 
     if(start!==undefined && end!==undefined){
-        await axios.get('http://hotel.leavy.voyage/v1/hotels?size='+size+'&country[eq]='+countryCode+'&start='+start+'&end='+end,{
+        axios.get('http://hotel.leavy.voyage/v1/hotels?size='+size+'&country[eq]='+countryCode+'&start='+start+'&end='+end,{
             headers: {
                 'Content-Type': 'application/json', 
                 'X-API-KEY': apiToken,
@@ -30,7 +31,7 @@ app.get('/hotels/:size/:country/:start?/:end?', async function (req, res) {
         });
     }
     else{
-        await axios.get('http://hotel.leavy.voyage/v1/hotels?size='+size+'&country[eq]='+countryCode,{
+        axios.get('http://hotel.leavy.voyage/v1/hotels?size='+size+'&country[eq]='+countryCode,{
             headers: {
                 'Content-Type': 'application/json', 
                 'X-API-KEY': apiToken,
@@ -45,36 +46,31 @@ app.get('/hotels/:size/:country/:start?/:end?', async function (req, res) {
             res.send(error);
         });
     }
-
-
 })
 
 
 app.get('/hotel/:id/', async function (req, res) {
     let hotelId = req.params.id;
    
-    await axios.get('http://hotel.leavy.voyage/v1/hotels/'+hotelId,{
+    axios.get('http://hotel.leavy.voyage/v1/hotels/'+hotelId,{
         headers: {
             'Content-Type': 'application/json', 
             'X-API-KEY': apiToken,
         },
     }, req)
     .then(resp => {
-        console.log(resp.data);
         res.send(resp.data);
     })
     .catch(function (error){
-        console.log(error.message);
         res.send(error);
     });
-
 })
 
 app.get('/hotels/test', async function (req, res) {
     let countryCode = "ESP";
     let start = "2021-12-31";
     let end = "2022-01-10";
-    await axios.get('http://hotel.leavy.voyage/v1/hotels?country[eq]='+countryCode+'&start='+start+'&end='+end,{
+    axios.get('http://hotel.leavy.voyage/v1/hotels?country[eq]='+countryCode+'&start='+start+'&end='+end,{
         headers: {
             'Content-Type': 'application/json', 
             'X-API-KEY': apiToken,
@@ -91,10 +87,10 @@ app.get('/hotels/test', async function (req, res) {
 
 })
 
-app.listen(4242, function (error) {
+app.listen(port, function (error) {
     if (error) {
         console.log(error);
     } else {
-        console.log(`server listening on http://localhost:4242 🎉`);
+        console.log(`server listening on http://localhost:${port} 🎉`);
     }
 })

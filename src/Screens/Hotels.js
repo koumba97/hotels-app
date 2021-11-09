@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import Switch from "react-switch";
 import DateInput from '../Components/DateInput';
@@ -7,47 +7,17 @@ import HotelCard from '../Components/HotelCard';
 import HotelSelected from '../Components/HotelSelected';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
-import '../assets/style/hotels_page.css';
+import {currentDate as defaultDepartureDate, returnDate as defaultReturnDate} from '../utils/index';
 
-
-// get current date
-let newDate = new Date()
-let date = newDate.getDate();
-if(date.toString().length===1){
-    date = "0"+date;
-}
-let month = newDate.getMonth() + 1;
-if(month.toString().length===1){
-    month = "0"+month;
-}
-let year = newDate.getFullYear();
-let currentDate = year + '-' + month + '-' + date;
-
-
-// adding 5 days to current date to get default return date
-newDate.setDate(newDate.getDate() + 5)
-let returnD = newDate.getDate();
-if(returnD.toString().length===1){
-    returnD = "0"+returnD;
-}
-let returnM = newDate.getMonth() + 1;
-if(returnM.toString().length===1){
-    returnM = "0"+returnM;
-}
-let returnY = newDate.getFullYear();
-
-let currentDatePlus5Days = returnY + '-' + returnM + '-' + returnD;
-
-
-class Hotels extends React.Component {
+class Hotels extends Component {
     constructor(props) {
         super(props)
         this.state = {
             totalResult:0,
             listHotels: [],
             loading: true,
-            departureDate:currentDate,
-            returnDate:currentDatePlus5Days,
+            departureDate:defaultDepartureDate,
+            returnDate:defaultReturnDate,
             selectedCountry:'FRA',
             selectedHotel:false,
             searchPerDate: false,
@@ -71,15 +41,16 @@ class Hotels extends React.Component {
     switchDateFilter = (checked) => {
         this.setState({ 
             searchPerDate : checked,
+            displayingHotels:10,
         });
-        this.hotelsResult(checked);
+        this.hotelsResult(checked, 10, this.state.selectedCountry,);
     }
 
     updateDepartureDate(date) {
         this.setState({
             departureDate: date
         });
-        this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels, this.state.selectedCountry, date, this.state.returnDate,);
+        this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels, this.state.selectedCountry, date, this.state.returnDate);
     }
     updateReturnDate(date) {
         this.setState({
@@ -93,7 +64,7 @@ class Hotels extends React.Component {
             this.setState({
                 displayingHotels: this.state.displayingHotels+10
             });
-            this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels+10, this.state.selectedCountry, this.state.departureDate, date);
+            this.hotelsResult(this.state.searchPerDate, this.state.displayingHotels+10, this.state.selectedCountry, this.state.departureDate, this.state.returnDate);
         }
     }
 

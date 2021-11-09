@@ -1,0 +1,129 @@
+.hotel_result-container{
+    background-color:rgb(248 247 255);
+    padding-top:calc(50px + 10px * 2 ); /* nav's height + its padding * 2 */
+    display:flex;
+    height:calc(100vh - 70px);
+    overflow:scroll;
+}
+.hotel_filter-container{
+    display: flex;
+    position:fixed;
+    z-index: 2;
+}
+.filters{
+    width:200px;
+    height:calc(100vh - (70px + 30px * 2)); /* height's screen - (nav's height + container padding * 2 )*/
+    background-color:white;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    z-index: 2;
+    border-right:solid 1px rgb(219, 219, 219);
+}
+.hidden_slide{
+    left: -260px;
+    transition-duration: 0.5s;
+}
+.shown_slide{
+    left: 0px;
+    transition-duration: 0.5s;
+}
+.filter-btn{
+    height: max-content;
+    left: 260px;
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(219, 219, 219);
+    border-left: none;
+    height: 50px;
+    width: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: none;
+}
+.filter-btn svg{
+    color: rgb(103, 111, 221);
+    position: relative;
+    right: 2px;
+    margin: auto;
+    font-size: 20px;
+}
+.hotels_list-container{
+    width:450px;
+    padding:0px 20px;
+    gap:30px;
+}
+
+.result-container{
+    display:flex;
+    width: 100%;
+    height: max-content;
+    margin-left:calc(200px + 30px * 2); /* filter container's width + filter container's padding * 2 */
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
+.hotels_result-p{
+    margin-top: auto;
+}
+
+
+.date_filter-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.small_filter-container{
+    height: 50px;
+    width: 200px;
+    background-color: white;
+    position: fixed;
+    left: calc(50% - 100px);
+    bottom: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.384);
+    border-radius: 50px;
+}
+@media screen and (max-width: 1200px) {
+    .hotels_list-container{
+        width:45%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .filter-btn{
+        display: flex;
+    }
+    .hotels_list-container{
+       padding: 0px;
+    }
+    .result-container{
+        justify-content: center;
+        gap: 30px;
+        margin-left: 0px;
+        padding-right: 0px;
+    }
+    .hotel_bg{
+        background-color: rgba(0, 0, 0, 0.438);
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .hotels_list-container{
+        width:100%;
+        padding: 30px;
+
+    }
+    .result-container{
+        margin: 0px;
+        padding:0px;
+    }
+  
+}
