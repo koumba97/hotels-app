@@ -77,7 +77,7 @@ class Hotels extends Component {
 
     hotelsResult = async (checked=null, size=10, country="FRA", departureDate=this.state.departureDate, returnDate=this.state.returnDate) => {
         if(checked){
-            await axios.get('/hotels/'+size+'/'+country+'/'+departureDate+'/'+returnDate).then(response => {
+            axios.get('/hotels/'+size+'/'+country+'/'+departureDate+'/'+returnDate).then(response => {
                 if(response.data && response.data.pagination){
                     this.setState({
                         listHotels: response.data.data,
@@ -87,7 +87,7 @@ class Hotels extends Component {
             })
         }
         else{
-            await axios.get('/hotels/'+size+'/'+country).then(response => {
+            axios.get('/hotels/'+size+'/'+country).then(response => {
                 if(response.data && response.data.pagination && response.data.pagination.total){
                     this.setState({
                         ...this.state,
@@ -100,7 +100,7 @@ class Hotels extends Component {
     }
 
     hotelData = async (hotelId) => {
-        await axios.get('/hotel/'+hotelId).then(response => {
+        axios.get('/hotel/'+hotelId).then(response => {
             this.setState({
                 hotelData:response.data,
                 selectedHotel: true

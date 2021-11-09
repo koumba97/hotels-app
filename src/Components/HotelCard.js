@@ -26,7 +26,7 @@ class HotelCard extends Component {
 
         return(
             // <NavLink to={"/"+hotel.hotelId}>
-                <div className="hotel_card-container" id={hotel.hotelId} onClick={this.props.onClick} style={selected ? {'border':'solid 1px rgb(103, 111, 221)'} : null}>
+                <div className="hotel_card-container" id={hotel.hotelId} onClick={this.props.onClick} style={selected ? {'boxShadow':'0px 0px 10px rgb(85 89 149 / 40%)'} : null}>
                     <div className="hotel_card-image" style={{backgroundImage:`url(${hotel.images[0].url})`}}>
                         <div className="hotel_card-city"><FontAwesomeIcon icon={faMapMarkerAlt} /> {hotel.address.city}</div>
                     </div>

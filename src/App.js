@@ -43,7 +43,7 @@ class App extends Component {
                         <Route path="/:id?" exact render={
                             (props) => {
                                 return (
-                                    <Hotels key={props.match.params.id} {...props} />
+                                    <Hotels/>
                                 )
                             }
                         } />
